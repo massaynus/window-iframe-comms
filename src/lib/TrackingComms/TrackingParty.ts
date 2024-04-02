@@ -45,10 +45,10 @@ export class TrackingParty implements ITrackingParty{
 
         this.channel.addEventListener('message', (event) => {
             const data = event.data as unknown as IEvent
-            // console.log('Party Mode:', this.mode, '\n', 'Tracked Event:', data, '\n', 'handler count: ', this.handlers.size)
+            console.log('Party Mode:', this.mode, '\n', 'Tracked Event:', data, '\n', 'handler count: ', this.handlers.size)
 
             this.handlers.forEach(handler => handler(data))
-            // maybe send msg to amplitude next
+            // maybe register a handler to send events to amplitude
         })
     }
 

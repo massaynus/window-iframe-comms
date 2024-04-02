@@ -1,12 +1,15 @@
 import {useEffect, useRef} from "react";
 import {TRACKING_CHANNEL_NAME, TrackingParty} from "../lib/TrackingComms/TrackingParty.ts";
 
-export function SenderBox() {
+export function SenderBox({isScoped} : {isScoped: boolean}) {
     const sender = useRef<TrackingParty>()
     useEffect(() => {
-        sender.current = new TrackingParty(TRACKING_CHANNEL_NAME, false)
+        sender.current = new TrackingParty(TRACKING_CHANNEL_NAME, isScoped)
 
-    }, []);
+        return () => {
+            sender.current?.channel.close()
+        }
+    }, [isScoped]);
 
     return (
         <div>
