@@ -48,8 +48,9 @@ export class TrackingParty implements ITrackingParty{
             const data = event.data as unknown as IEvent
             console.log('Party Mode:', this.mode, '\n', 'Tracked Event:', data, '\n', 'handler count: ', this.handlers.size)
 
-            this.handlers.forEach(handler => handler(data))
-            // maybe register a handler to send events to amplitude
+            if (this.mode === PartyMode.RECEIVER)
+                // maybe register a handler to send events to amplitude
+                this.handlers.forEach(handler => handler(data))
         })
     }
 
