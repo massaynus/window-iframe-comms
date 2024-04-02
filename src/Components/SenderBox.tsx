@@ -1,10 +1,11 @@
 import {useEffect, useRef} from "react";
-import {DEFAULT_CHANNEL_NAME, TrackingParty} from "../lib/TrackingComms/TrackingParty.ts";
+import {TRACKING_CHANNEL_NAME, TrackingParty} from "../lib/TrackingComms/TrackingParty.ts";
 
 export function SenderBox() {
     const sender = useRef<TrackingParty>()
     useEffect(() => {
-        sender.current = new TrackingParty(DEFAULT_CHANNEL_NAME)
+        sender.current = new TrackingParty(TRACKING_CHANNEL_NAME, false)
+
     }, []);
 
     return (

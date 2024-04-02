@@ -1,4 +1,4 @@
-export const DEFAULT_CHANNEL_NAME: string = "TRACKING_BROADCAST_CHANNEL"
+export const TRACKING_CHANNEL_NAME: string = "TRACKING_BROADCAST_CHANNEL"
 
 export enum PartyMode {
     SENDER,
@@ -34,10 +34,10 @@ export class TrackingParty implements ITrackingParty{
     private readonly handlers: Set<(event: IEvent<unknown>) => void>
 
 
-    constructor(channelName: string) {
-        this.channelName = channelName
+    constructor(channelName: string, scoped: boolean = false) {
+        this.channelName = channelName + (scoped ? new URLSearchParams(window.location.search).get('channelId') : '')
         this.mode = resolvePartyMode()
-        this.channel = new BroadcastChannel(channelName)
+        this.channel = new BroadcastChannel(this.channelName)
 
         console.log(`Creating TrackingParty with mode "${this.mode}" for channel "${this.channelName}"`)
 
@@ -45,7 +45,7 @@ export class TrackingParty implements ITrackingParty{
 
         this.channel.addEventListener('message', (event) => {
             const data = event.data as unknown as IEvent
-            console.log('Party Mode:', this.mode, '\n', 'Tracked Event:', data, '\n', 'handler count: ', this.handlers.size)
+            // console.log('Party Mode:', this.mode, '\n', 'Tracked Event:', data, '\n', 'handler count: ', this.handlers.size)
 
             this.handlers.forEach(handler => handler(data))
             // maybe send msg to amplitude next
@@ -61,7 +61,7 @@ export class TrackingParty implements ITrackingParty{
     }
 
     trackEvent(event: IEvent) {
-        console.log('Party Mode:', this.mode, '\n', 'Tracked Event:', event)
+        console.log('Party Mode:', this.mode, '\n', 'Sending Event:', event, '\n', 'Channel Name:', this.channelName)
         this.channel.postMessage(event)
     }
 }
