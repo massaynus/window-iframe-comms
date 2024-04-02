@@ -34,8 +34,8 @@ export class TrackingParty implements ITrackingParty{
     private readonly handlers: Set<(event: IEvent<unknown>) => void>
 
 
-    constructor(channelName: string, scoped: boolean = false) {
-        this.channelName = channelName + (scoped ? new URLSearchParams(window.location.search).get('channelId') : '')
+    constructor(channelName: string, isScoped: boolean = false) {
+        this.channelName = channelName + (isScoped ? new URLSearchParams(window.location.search).get('channelId') : '')
         this.mode = resolvePartyMode()
         this.channel = new BroadcastChannel(this.channelName)
 
