@@ -11,3 +11,8 @@ which would be unique and isolate the TAB from sending/receiving events from oth
 the **channelId** params should be sent down to all iframes using the same `TrackingParty` class to use isolation correctly
 
 `channelName`: the name of the channel to use, a default one is suggested but for any other purposes other ones can be used XD
+
+
+the registered handlers will only execute when the `PartyMode` is sat to `RECEIVER`
+
+and the `trackEvent` will only publish when the `PartyMode` is sat to `SENDER`

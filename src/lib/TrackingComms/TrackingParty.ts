@@ -63,6 +63,8 @@ export class TrackingParty implements ITrackingParty{
     }
 
     trackEvent(event: IEvent) {
+        if (this.mode !== PartyMode.SENDER) return
+
         console.log('Party Mode:', this.mode, '\n', 'Sending Event:', event, '\n', 'Channel Name:', this.channelName)
         this.channel.postMessage(event)
     }
