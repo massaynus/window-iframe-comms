@@ -1,4 +1,5 @@
 export const TRACKING_CHANNEL_NAME: string = "TRACKING_BROADCAST_CHANNEL"
+export const CHANNEL_SCOPE_PARAM: string = "channelId"
 
 export enum PartyMode {
     SENDER,
@@ -35,7 +36,7 @@ export class TrackingParty implements ITrackingParty{
 
 
     constructor(channelName: string, isScoped: boolean = false) {
-        this.channelName = channelName + (isScoped ? new URLSearchParams(window.location.search).get('channelId') : '')
+        this.channelName = channelName + (isScoped ? new URLSearchParams(window.location.search).get(CHANNEL_SCOPE_PARAM) : '')
         this.mode = resolvePartyMode()
         this.channel = new BroadcastChannel(this.channelName)
 

@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {PartyMode, resolvePartyMode} from "../lib/TrackingComms/TrackingParty.ts";
+import {CHANNEL_SCOPE_PARAM, PartyMode, resolvePartyMode} from "../lib/TrackingComms/TrackingParty.ts";
 import {ReceiverBox} from "./ReceiverBox.tsx";
 import {SenderBox} from "./SenderBox.tsx";
 
@@ -9,7 +9,7 @@ export default function Box() {
 
     useEffect(() => {
         const mode = resolvePartyMode()
-        const isScoped = new URLSearchParams(window.location.search).has('channelId')
+        const isScoped = new URLSearchParams(window.location.search).has(CHANNEL_SCOPE_PARAM)
 
         setMode(mode)
         setIsScoped(isScoped)
