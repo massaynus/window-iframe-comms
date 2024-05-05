@@ -28,7 +28,7 @@ export function resolvePartyMode() {
     else return PartyMode.SENDER
 }
 
-export class TrackingParty implements ITrackingParty{
+export class TrackingParty implements ITrackingParty {
     readonly channelName: string
     readonly mode: PartyMode
     readonly channel: BroadcastChannel
